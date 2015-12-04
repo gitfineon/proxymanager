@@ -16,11 +16,13 @@ case "$1" in
     echo Enabling for Git global
     which git > /dev/null || exit
     git config --global http.proxy http://${PM_PROXY_HOST}:${PM_PROXY_PORT}
+    git config --global url."https://".insteadOf git://
     ;;
   off)
     echo Disabling for Git global
     which git > /dev/null || exit
-    git config --global http.proxy ""
+    git config --global --unset http.proxy http://${PM_PROXY_HOST}:${PM_PROXY_PORT}
+    git config --global --unset url."https://".insteadOf git://
     ;;
   check*)
     if ! which git > /dev/null
